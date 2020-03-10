@@ -1,0 +1,12 @@
+scratch/
+venv/
+
+data/*.pdf
+data/*.tsv
+
+.idea/
+.DS_Store
+
+client/node_modules
+
+data/Data_freeze_*
