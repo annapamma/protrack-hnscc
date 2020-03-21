@@ -1,7 +1,7 @@
 import pickle
 
 from flask import Flask, jsonify, safe_join, send_from_directory
-from flask_cors import CORS, cross_origin
+from flask_cors import cross_origin, CORS
 
 STATIC_DIR = '../client/dist/'
 ASSETS_DIR = './assets'
@@ -10,10 +10,10 @@ app = Flask(__name__,
             static_folder=STATIC_DIR,
             )
 
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 
-color_df = pickle.load(open('/Users/anna/PycharmProjects/protrack-hnsc/data/color/color.pkl', 'rb'))
-actual_df = pickle.load(open('/Users/anna/PycharmProjects/protrack-hnsc/data/actual/actual.pkl', 'rb'))
+color_df = pickle.load(open('../data/color/color.pkl', 'rb'))
+actual_df = pickle.load(open('../data/actual/actual.pkl', 'rb'))
 
 pathways = {
     'hallmark': pickle.load(open('../data/pathways/hallmark.pkl', 'rb')),
@@ -30,8 +30,8 @@ def pathway(db='', pw=''):
     })
 
 @app.route('/')
-def hello():
-    return 'hello'
+def catch_all():
+    return app.send_static_file("index.html")
 
 def df_to_apex_data(color_scale_df, actual):
     series = [
