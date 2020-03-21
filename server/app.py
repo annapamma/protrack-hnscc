@@ -3,7 +3,7 @@ import pickle
 from flask import Flask, jsonify, safe_join, send_from_directory
 from flask_cors import cross_origin, CORS
 
-STATIC_DIR = '../client/dist/'
+STATIC_DIR = '../client/dist/assets'
 ASSETS_DIR = './assets'
 
 app = Flask(__name__,
