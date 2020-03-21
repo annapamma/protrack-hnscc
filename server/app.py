@@ -3,7 +3,7 @@ import pickle
 from flask import Flask, jsonify, safe_join, send_from_directory
 from flask_cors import cross_origin, CORS
 
-STATIC_DIR = '../client/dist/assets'
+STATIC_DIR = '../client/dist'
 ASSETS_DIR = './assets'
 
 app = Flask(__name__,
@@ -32,6 +32,10 @@ def pathway(db='', pw=''):
 @app.route('/')
 def catch_all():
     return app.send_static_file("index.html")
+
+@app.route('/assets/<path:path>')
+def send_assets(path):
+    return send_from_directory(safe_join(STATIC_DIR, ASSETS_DIR), path)
 
 def df_to_apex_data(color_scale_df, actual):
     series = [
